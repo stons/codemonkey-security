@@ -1,4 +1,4 @@
-rootProject.name = 'codemonkey-security-develop'
+rootProject.name = 'codemonkey-security'
 include 'codemonkey-security-browser'
 include 'codemonkey-security-app'
 include 'codemonkey-security-simple'

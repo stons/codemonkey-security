@@ -40,61 +40,6 @@ allprojects{
         mavenLocal()
         for (u in repos) { maven(u) }
     }
-
-    tasks{
-        "jar"(Jar::class){
-            enabled = true
-        }
-        "bootJar"(BootJar::class){
-            enabled = false
-        }
-        create("sourcesJar",Jar::class){
-            classifier = "sources"
-            from(sourceSets.main.get().allJava)
-        }
-
-        withType(PublishToMavenRepository::class){
-            onlyIf {
-                (repository == publishing.repositories["hhkj"] &&
-                        publication == publishing.publications["binary"])
-//                    ||
-//                    (repository == publishing.repositories["internal"] &&
-//                            publication == publishing.publications["binaryAndSources"])
-            }
-        }
-
-        withType(PublishToMavenLocal::class){
-            onlyIf {
-                publication == publishing.publications["binaryAndSources"]
-            }
-        }
-    }
-
-    publishing {
-        publications {
-            create<MavenPublication>("binary") {
-                from(components["java"])
-            }
-            create<MavenPublication>("binaryAndSources") {
-                from(components["java"])
-                artifact(tasks["sourcesJar"])
-            }
-        }
-        repositories {
-            maven {
-                name = "hhkj"
-                url = uri("http://192.168.1.222:8092/repository/maven-snapshots/")
-                credentials{
-                    username = "admin"
-                    password = "am@hao1!2"
-                }
-            }
-//            maven {
-//                name = "self"
-//                url = uri("$buildDir/repos/internal")
-//            }
-        }
-    }
 }
 
 
@@ -105,6 +50,7 @@ subprojects{
     apply(plugin ="base")
     apply(plugin = "io.spring.dependency-management")
     apply(plugin  = "org.springframework.boot")
+    apply(plugin  = "maven-publish")
     tasks{
         "jar"(Jar::class){
             enabled = true
