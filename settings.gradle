@@ -1,0 +1,6 @@
+rootProject.name = 'codemonkey-security-develop'
+include 'codemonkey-security-browser'
+include 'codemonkey-security-app'
+include 'codemonkey-security-simple'
+include 'codemonkey-security-core'
+
